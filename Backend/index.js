@@ -2,13 +2,14 @@ const express = require("express");
 const { createServer } = require("node:http");
 
 const { Server } = require("socket.io");
-const connectToSocket = require("./controllers/socketManager");
+const connectToSocket = require("./controllers/socketManager.js");
 
 const mongoose = require("mongoose");
 const app = express();
 
 const cors = require("cors");
 app.use(cors());
+const userRoute = require("./routes/user.routes.js");
 app.use(express.json({ limit: "40kb" }));
 app.use(express.urlencoded({ limit: "40kb", extended: true }));
 
@@ -31,6 +32,8 @@ const ConnectionWithDb = async () => {
 
 //Connecting to MongoDB
 ConnectionWithDb();
+
+app.use(userRoute);
 
 server.listen(app.get("Port"), () => {
   console.log(`Server is running on port ${app.get("Port")}`);
