@@ -21,9 +21,8 @@ import { useAuth } from "../contexts/AuthenticationContext"; // ✅ Use the cust
 
 export default function SignupPage() {
   const theme = useTheme();
-  const navigate = useNavigate();
   const { handleRegister } = useAuth(); // ✅ Get function from context
-
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const [formData, setFormData] = React.useState({
     name: "",
@@ -45,15 +44,13 @@ export default function SignupPage() {
   const handleMouseDownPassword = (event) => event.preventDefault();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  const result = await handleRegister(formData.name, formData.email, formData.password);
+  if (!result.success) {
+    setError(result.message);
+  }
+};
 
-    try {
-      await handleRegister(formData.name, formData.email, formData.password);
-    } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
-    }
-  };
- add <div className=""></div>
   return (
     <Box
       minHeight="100vh"
@@ -74,7 +71,13 @@ export default function SignupPage() {
             <h2 style={{ marginBottom: 0, textAlign: "center" }}>Sign Up</h2>
 
             {error && (
-              <div style={{ color: "red", fontSize: "0.875rem", textAlign: "center" }}>
+              <div
+                style={{
+                  color: "red",
+                  fontSize: "0.875rem",
+                  textAlign: "center",
+                }}
+              >
                 {error}
               </div>
             )}
@@ -164,11 +167,7 @@ export default function SignupPage() {
               >
                 Login
               </Button>
-              <Button
-                onClick={() => navigate("/")}
-                variant="text"
-                size="small"
-              >
+              <Button onClick={() => navigate("/")} variant="text" size="small">
                 Home
               </Button>
             </Stack>

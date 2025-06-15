@@ -43,10 +43,9 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await handleLogin(formData.email, formData.password); // ✅ No need to pass navigate
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+    const result = await handleLogin(formData.email, formData.password);
+    if (!result.success) {
+      setError(result.message);
     }
   };
 

@@ -1,22 +1,20 @@
-import "./App.css";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
+import { AuthenticationProvider } from "./contexts/AuthenticationContext";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
-import { AuthenticationProvider } from "./contexts/AuthenticationContext";
+import LandingPage from "./pages/LandingPage"; // Example
 
-function App() {
+export default function App() {
   return (
     <Router>
       <AuthenticationProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </AuthenticationProvider>
     </Router>
   );
 }
-
-export default App;
