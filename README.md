@@ -29,10 +29,13 @@ A fully functional video calling web application inspired by Zoom. Built using *
 
 ## 📁 Project Structure
 ``` Zoom-Clone/
-├── public/
-│   ├── css/
-│   ├── js/
+├── public/  
 │   └── index.html
+├── src
+│    ├── assets
+│    ├── contexts
+│    ├── pages
+│    └── utils
 ├── server.js
 ├── package.json
 └── README.md
